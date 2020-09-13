@@ -1,0 +1,57 @@
+<ob-templates>
+  <ob ob-type="Graph">
+    <ob-label>Graph</ob-label>
+    <button ob-build="array">Render</button>
+    <button ob-action="Stop">Stop!</button>
+    <button ob-action="Clear">Clear</button>
+
+    <!-- Object keys or array values -->
+    <ob-setting ob-key="width" ob-validate="float" ob-default="500"></ob-setting>
+    <ob-setting ob-key="height" ob-validate="float" ob-default="500"></ob-setting>
+    <ob-object ob-key="test" ob-type="test"></ob-object>
+    <ob-object ob-key="custom-test">
+      <ob-setting ob-key="custom-width" ob-validate="float" ob-default="280"></ob-setting>
+      <ob-setting ob-key="custom-height" ob-validate="float" ob-default="240"></ob-setting>
+    </ob-object>
+    <ob-array ob-key="children">
+      <button ob-array-add="Cog" ob-array-key="children">Add Cog</button>
+      <button ob-array-add="Nub">Add Nub</button>
+    </ob-array>
+  </ob>
+  <ob ob-type="test">
+    <ob-setting ob-key="width" ob-validate="float"><input type="text" value="280"></ob-setting>
+    <ob-setting ob-key="height" ob-validate="float"><input type="text" value="240"></ob-setting>
+    <ob-setting ob-key="invert" ob-value="false"><input type="checkbox"></ob-setting>
+    <ob-control>
+      <button ob-array-add="Cog" ob-array-key="children">Add Cog</button>
+    </ob-control>
+    <ob-array ob-key="children"></ob-array>
+  </ob>
+  <ob ob-type="Cog">
+    <ob-label>Cog</ob-label>
+    <ob-setting ob-key="width" ob-validate="float"><input type="text" value="280"></ob-setting>
+    <ob-setting ob-key="height" ob-validate="float"><input type="text" value="240"></ob-setting>
+    <ob-setting ob-key="invert" ob-value="false"><input type="checkbox"></ob-setting>
+    <ob-control>
+      <!-- Removes the object from whatever array it belongs in-->
+      <button ob-action="delete">Remove</button>
+
+      <button ob-array-add="Cog" ob-array-key="children">Add Cog</button>
+      
+      <!--This will add a "Nub" to an array called "children"-->
+      <button ob-array-add="Nub" ob-array-key="children">Add Nub</button>
+    </ob-control>
+
+    <!-- An array type is for containing other OB objects listed in the template section-->
+    <ob-array ob-key="children"></ob-array>
+  </ob>
+  <ob ob-type="Nub">
+    <ob-label>Nub</ob-label>
+    <ob-setting ob-key="X" ob-validate="float"><input type="text" value="0"></ob-setting>
+    <ob-setting ob-key="Y" ob-validate="float"><input type="text" value="-20"></ob-setting>
+    <ob-setting ob-key="Color" ob-validate="hexcolor"><input type="string" value="#000" disabled></ob-setting>
+    <ob-control>
+      <button ob-action="delete">Remove</button>
+    </ob-control>
+  </ob>
+</ob-templates>

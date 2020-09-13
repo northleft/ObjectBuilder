@@ -1,19 +1,58 @@
 
+
+ob-container ob{
+  background: #ace8dc;
+}
+ob-container ob ob{
+  background: #b5eecd;
+}
+ob-container ob ob ob{
+  background: #b7dbf3;
+}
+ob-container ob ob ob ob{
+  background: #ddc5e7;
+}
+ob-container ob ob ob ob ob{
+  background: #b8bfc7;
+}
+ob-container ob ob ob ob ob ob{
+  background: #faeba6;
+}
+ob-container ob ob ob ob ob ob ob{
+  background: #f6d2ae;
+}
+ob-container ob ob ob ob ob ob ob ob{
+  background: #f8c1ba;
+}
+ob-container ob ob ob ob ob ob ob ob ob{
+  background: #f9fbfa;
+}
+ob-container ob ob ob ob ob ob ob ob ob ob{
+  background: #dbe1e1;
+}
+
 ob-container{
   display: block;
   position: absolute;
   float: none;
-  left: 0px;
-  top: 20px;
-  bottom: 20px;
+  left: 5px;
+  top: 5px;
+  height: calc(100vh - 10px);
+  width: calc(100vw - 10px);
+  /*direction: rtl;*/
+  overflow: hidden;
+  overflow-y: scroll;
+  font-family: Arial, Helvetica, sans-serif;
 }
 ob-container ob,
 ob-container input,
 ob-container ob-label,
 ob-container ob-setting,
 ob-container ob-setting:before,
+ob-container ob-setting ob-check,
 ob-container ob-control,
 ob-container ob-array,
+ob-container ob-array:before,
 ob-container ob-object,
 ob-container ob-object:before,
 ob-container button{
@@ -21,56 +60,213 @@ ob-container button{
   position: relative;
   float: left;
   box-sizing: border-box;
-  width: 100%;
+  clear: both;
 }
-ob-container ob{
-  margin: 1px 0px 0px;
+ob-container br{
+  clear: both;
+  line-height: 0px;
 }
 ob-container ob-label,
 ob-container ob-setting,
 ob-container ob-control,
-ob-container ob-object{
-  background: #dddddd;
-  padding: 0px 4px;
+ob-container ob-object,
+ob-container ob-array{
+  /*background: #dddddd;*/
+  padding: 0px;
 }
 ob-container ob{
-  width: 80px;
+  background: #ace8dc;
   color: #000;
+  border-radius: 10px;
+  margin: 1px 0px 0px;
+  padding: 0px 6px 10px;
+  direction:ltr;
 }
 ob-container ob-label{
-  font-size: 13px;
+  font-size: 15px;
+  line-height: 30px;
   color: #000;
-  padding-top: 4px;
+  width: 100%;
+  height: 30px;
+}
+ob-container ob{
+  height: 30px;
+  overflow: hidden;
+}
+ob-container ob.ob-open{
+  height: auto;
+  padding-bottom: 10px;
+  overflow: visible;
+}
+ob-container ob > ob-label:first-child:after{
+  content: '';
+  display: block;
+  position: absolute;
+  float: none;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  right: 4px;
+  margin: -4px 0px 0px;
+  border: 2px solid rgba(0,0,0,.8);
+  border-top: 0px;
+  border-left: 0px;
+  transform: rotate(-45deg);
+}
+ob-container ob.ob-open > ob-label:first-child:after{
+  transform: rotate(45deg);
 }
 ob-container ob-setting{
-  padding-bottom: 2px;
+  padding: 0px 0px 2px;
+  font-family: monospace;
+  width: max-content;
+}
+ob-container ob-setting[contenteditable]:active,
+ob-container ob-setting[contenteditable]:focus{
+  background: rgba(255, 255, 255, .5);
+  border: none;
+  outline: none;
+}
+ob-container ob-setting,
+ob-container ob-setting:before,
+ob-container ob-object:before,
+ob-container ob-array:before{
+  font-size: 12px;
+  line-height: 1em;
 }
 ob-container ob-setting:before,
-ob-container ob-object:before{
-  content: attr(ob-key);
-  font-size: 10px;
+ob-container ob-object:before,
+ob-container ob-array:before{
+  content: attr(ob-key)':';
+  clear: none;
+  font-weight: 100;
+  font-family: Arial, Helvetica, sans-serif;
 }
-ob-container input[type="text"]{
+ob-container ob-setting:before{
+  padding: 0px 6px 0px 0px;
+}
+ob-container ob-object:before,
+ob-container ob-array:before{
   width: 100%;
+  margin: 0px 0px 0px -6px;
+}
+ob-container ob-array:before{
+  content: attr(ob-key)' []:';
+}
+ob-container ob-object:before{
+  content: attr(ob-key)' {}:';
+}
+ob-container ob-object,
+ob-container ob-array{
+  width: calc(100% + 6px);
+  padding: 0px 0px 0px 6px;
+}
+ob-container ob-array.ob-open{
+  background: 
+}
+ob-container ob-object > ob-object,
+ob-container ob-object > ob-array{
+  width: 100%;
+}
+ob-container ob-setting ob-check{
+  content: '';
+  width: 12px;
+  height: 12px;
+  border: 1px solid #000;
+  clear: none;
+}
+ob-container ob-setting[ob-value="true"] ob-check{
+  background: #000;
+}
+/*
+ob-container input[type="text"]{
   padding: 0px;
   font-size: 12px;
+  width: 80px;
+  clear: none;
 }
 ob-container input[type="checkbox"]{
   width: auto;
   margin: 0px;
   padding: 0px;
 }
+*/
 ob-container ob-control{
   padding-bottom: 4px;
 }
 ob-container button{
-  width: 100%;
+  /*width: 100%;*/
   font-size: 10px;
   white-space: nowrap;
 }
 ob-container ob-array{
-  margin: 0px 0px 0px 18px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .1) 100%) top left/100% 100% no-repeat;
+  /*background: rgba(0,0,0,.3);*/
+  /*width: calc(100% + 28px);*/
 }
-ob-templates{
+ob-container ob-array-container{
+  display: block;
+  position: absolute;
+  float: none;
+  left: calc(100% + 2px);
+
   display: none;
+}
+ob-container ob-array-container ob{
+  width: 100%;
+}
+ob-container ob-array.ob-open ob-array-container{
+  display: block;
+}
+ob-container ob-array-open{
+  display: block;
+  position: absolute;
+  float: none;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+ob-container ob-array.ob-open > ob-array-open{
+  border-right: 1px rgba(0,0,0,.8) solid;
+}
+ob-container ob-delete,
+ob-container ob-delete:before,
+ob-container ob-delete:after{
+  display: block;
+  position: absolute;
+  float: none;
+}
+ob-container ob-delete{
+  width: 30px;
+  height: 30px;
+  left: 100%;
+  top: 0px;
+  margin: 0px 0px 0px 1px;
+}
+ob-container ob-delete:before,
+ob-container ob-delete:after{
+  content: '';
+  background: #000;
+  width: 1px;
+  height: 20px;
+  left: 50%;
+  top: 50%;
+}
+ob-container ob-delete:before{
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+ob-container ob-delete:after{
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+ob-container > ob > ob-delete{
+  display: none;
+}
+
+
+ob-templates{
+  display: none !important;
 }

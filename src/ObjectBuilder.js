@@ -1,11 +1,34 @@
 
 
 (function(){
-  let OB = {};
+  let OB = {
+    array_open: '<ob-array-open></ob-array-open>',
+    array_container: '<ob-array-container></ob-array-container>',
+    check_html: '<ob-check></ob-check>',
+    delete: '<ob-delete></ob-delete>'
+  };
+
+  let obcount = 0;
+  let obmax = 10;
+  let ocl = 'ob-open';
 
   function init(){
     let templates = {};
-    $('ob-templates [ob-type]').each(function(){
+    let ob_templates = $('ob-templates');
+    ob_templates.find('ob-setting').not('[ob-check]').attr('contenteditable', true);
+
+    ob_templates.find('[ob-check]').each(function(){
+      let that = $(this);
+      let check = (that.attr('ob-value') || that.html()).toLowerCase();
+      check = check == '1' || check == 'true' || false;
+      that.html(OB.check_html);
+      //that.data('value', check);
+      that.attr('ob-value', check);
+    });
+
+    ob_templates.find('ob-array').prepend(OB.array_open).append(OB.array_container);
+
+    ob_templates.children('[ob-type]').each(function(){
       let that = $(this);
       let type = that.attr('ob-type');
       let html = $('<div></div>').append(that.clone()).html();
@@ -15,31 +38,53 @@
     OB.templates = templates;
     OB.container = $('ob-container');
 
+    OB.container.on('click', 'ob-array-open', function(){
+      let that = $(this);
+      let array = that.closest('ob-array').eq(0);
+
+      if (!array.hasClass(ocl)){
+        array.trigger('ob-array-open');
+      } else {
+        array.trigger('ob-array-close');
+      }
+    });
+
+    OB.container.on('ob-array-open', 'ob-array', function(e){
+      e.stopPropagation();
+      let array = $(this);
+
+      OB.container.find('.' + ocl).removeClass(ocl);
+      array.addClass(ocl).parents('ob, ob-array').addClass(ocl);
+    });
+
+    OB.container.on('ob-array-close', 'ob-array', function(){
+      let array = $(this);
+      array.removeClass(ocl).find('.' + ocl).removeClass(ocl);
+    });
+
     // add to array objects
-    OB.container.on('click', '[ob-array-add]', function(){
+    OB.container.on('click', '[ob-array-add]', function(e){
       let that = $(this);
       let type = that.attr('ob-array-add');
-      let array = that.attr('ob-array-key');
-      let ob = that.closest('ob').eq(0);
-      let parent = ob.children('[ob-key="' + array + '"]');
+      let array = that.closest('ob-array');
+      let container = array.children('ob-array-container');
 
-      if (parent.length){
-        let parentType = parent.prop('nodeName').toLowerCase();
+      console.log('adding to array', type)
 
-        if (parentType == 'ob-object'){
-          parent.empty();
-        }
-        
-        parent.append(templates[type]);
-      } else {
-        console.log('ObjectBuilder: Array does not exist');
-      }
+      OB_addElement(type, container);
+      array.trigger('ob-array-open');
     });
 
     OB.container.on('click', '[ob-build]', function(){
       let that = $(this);
       let type = that.attr('ob-button-build');
       OB.build(type);
+    });
+
+    OB.container.on('click', 'ob > ob-label:first-child', function(){
+      let that = $(this);
+      let ob = that.closest('ob').eq(0);
+      ob.toggleClass('ob-open');
     });
 
     OB.container.on('click', '[ob-button-delete]', function(){
@@ -49,17 +94,24 @@
   }
 
   function OB_addElement(type, container){
+    console.log(type, container);
     container = container || OB.container;
     if (OB.templates[type]){
-      type = $(OB.templates[type]);
+      type = $(OB.templates[type]).addClass(ocl);
       
-      let objects = type.find('[ob-object]');
-      objects.each(function(){
-        let that = $(this);
-        OB_addElement(that.attr('[ob-type]'), that);
-      })
+      type.children('ob-object').each(function(){
+        let obj = $(this);
+        let obtype = obj.attr('ob-type');
+        OB_addElement(obtype, obj);
+      });
 
-      container.append(type);
+      if (container.prop('tagName').toLowerCase() != 'ob-object'){
+        container.append(type.append(OB.delete));
+      } else {
+        container.append(type.html());
+      }
+    } else {
+      console.log('OB type not found: ' + type);
     }
   }
 
