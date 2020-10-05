@@ -1,5 +1,5 @@
 
-
+/*
 ob-container ob{
   background: #ace8dc;
 }
@@ -30,6 +30,7 @@ ob-container ob ob ob ob ob ob ob ob ob{
 ob-container ob ob ob ob ob ob ob ob ob ob{
   background: #dbe1e1;
 }
+*/
 
 ob-container{
   display: block;
@@ -77,10 +78,13 @@ ob-container ob-array{
 ob-container ob{
   background: #ace8dc;
   color: #000;
+  min-width: 140px;
   border-radius: 10px;
-  margin: 1px 0px 0px;
+  margin: 0px 0px 4px;
   padding: 0px 6px 10px;
   direction:ltr;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
+  border: 1px solid rgba(0,0,0,.3);
 }
 ob-container ob-label{
   font-size: 15px;
@@ -88,6 +92,7 @@ ob-container ob-label{
   color: #000;
   width: 100%;
   height: 30px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 ob-container ob{
   height: 30px;
@@ -162,8 +167,28 @@ ob-container ob-array{
   width: calc(100% + 6px);
   padding: 0px 0px 0px 6px;
 }
-ob-container ob-array.ob-open{
-  background: 
+ob-container key[type="object-array"]{
+
+  /*
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, .1) 100%) top left/100% 100% no-repeat;
+
+  background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20width=%22420%22%20height=%22150%22%20viewBox=%220%200%20420%20150%22%3E%3Cdefs%3E%3CradialGradient%20id=%22radial-gradient%22%20cx=%22313.76%22%20cy=%22-64.31%22%20r=%22182.03%22%20gradientUnits=%22userSpaceOnUse%22%3E%3Cstop%20offset=%220%22%20stop-color=%22rgb(0,0,0)%22%20stop-opacity=%220.3%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22rgb(0,0,0)%22%20stop-opacity=%220.05%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath%20d=%22M420,0V144.5C346.5,98,114.17,49.67,67.5,38,7.5,23-13.5,0,14,0Z%22%20style=%22fill:%20url(#radial-gradient)%22/%3E%3C/svg%3E');
+
+  <svg width="420" height="150" viewBox="0 0 420 150"><defs><radialGradient id="radial-gradient" cx="313.76" cy="-64.31" r="182.03" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="rgb(0,0,0)" stop-opacity="0.3"/><stop offset="1" stop-color="rgb(0,0,0)" stop-opacity="0.05"/></radialGradient></defs><path d="M420,0V144.5C346.5,98,114.17,49.67,67.5,38,7.5,23-13.5,0,14,0Z" style="fill: url(#radial-gradient)"/></svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="420" height="150" viewBox="0 0 420 150">
+    <defs>
+      <radialGradient id="radial-gradient" cx="313.76" cy="-64.31" r="182.03" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="rgb(0,0,0)" stop-opacity="0.3"/>
+        <stop offset="1" stop-color="rgb(0,0,0)" stop-opacity="0.05"/>
+      </radialGradient>
+    </defs>
+    <rect width="420" height="150" style="fill: none"/>
+    <path d="M420,0V144.5C346.5,98,114.17,49.67,67.5,38,7.5,23-13.5,0,14,0Z" style="fill: url(#radial-gradient)"/>
+  </svg>
+  */
+
+
 }
 ob-container ob-object > ob-object,
 ob-container ob-object > ob-array{
@@ -269,4 +294,244 @@ ob-container > ob > ob-delete{
 
 ob-templates{
   display: none !important;
+}
+ob-container key,
+ob-container label,
+ob-container value,
+ob-container *:after,
+ob-container *:before{
+  font-size: 13px;
+  line-height: 13px;
+  font-family: monospace;
+}
+ob-container key{
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  float: left;
+  white-space: nowrap;
+  clear: both;
+  width: 100%;
+  padding: 0px 0px 0px 6px;
+}
+ob-container ob > key{
+  margin: 0px 0px 2px;
+}
+ob-container key > label,
+ob-container key > label + value{
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+}
+ob-container key > label{
+  padding: 0px 1px 0px 0px;
+  margin: 0px 10px 0px 0px;
+}
+ob-container key > label:first-child{
+  margin: 0px 10px 0px -6px;
+}
+ob-container key > label:after{
+  content: ':';
+  display: inline-block;
+  position: absolute;
+  float: none;
+  top: 0px;
+  left: 100%;
+}
+ob-container key value{
+  padding: 0px 1px;
+}
+/*
+ob-container key > key,
+ob-container key > button,
+ob-container key[type="array"] value{
+  margin-left: 6px;
+}
+*/
+ob-container key[type="array"]{
+  counter-set: ob-array-counter -1;
+}
+ob-container key[type="array"] label,
+ob-container key[type="array"] value,
+ob-container key[type="object-array"] label{
+  clear: both;
+  float: left;
+}
+ob-container key[type="array"] value:before{
+  counter-increment: ob-array-counter;
+  content: counter(ob-array-counter) ': ';
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: .6;
+  font-size: .7em;
+}
+ob-container key[type="object-array"] ob{
+  width: auto;
+}
+/*
+ob-container key[type="array"] button:last-child{
+  display: block;
+  position: absolute;
+  float: none;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  border-radius: 50%;
+}
+*/
+ob-container key[type="array"] > label:first-child:after{
+  content: ': [';
+}
+ob-container key[type="object"] > label:first-child:after{
+  content: ': {';
+}
+ob-container key[type="array"] > value:not(:last-child):after,
+ob-container key[type="object"] > key:not(:last-child) > value:after{
+  content: ',';
+}
+ob-container key[type="object"]:after,
+ob-container key[type="array"]:after{
+  content: ']';
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0px 0px 0px -6px;
+}
+ob-container key[type="object"]:after{
+  content: '}';
+}
+ob-container key[type="object-array"]{
+  padding-right: 60px;
+}
+
+/*
+ob-container key[type="object-array"].ob-open:after{
+  content: '';
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><style>path{opacity:.1;fill:rgb(255,255,255);}</style><path d="M35.42,15C15.62,24,0,41,0,50S15.62,76,35.42,85,85.68,100,100,100V0C85.68,0,55.21,6,35.42,15Z"/><path d="M7.73,50c0,9.64,14.39,26.21,32.65,35.17S86.79,99.73,100,99.73V.27C86.79.27,58.64,5.88,40.38,14.83S7.73,40.36,7.73,50Z"/><path d="M15.45,50c0,10.27,13.16,26.41,29.89,35.32S87.9,99.45,100,99.45V.55C87.9.55,62.07,5.78,45.34,14.68S15.45,39.73,15.45,50Z"/><path d="M23.18,50c0,10.91,11.92,26.61,27.12,35.47S89,99.18,100,99.18V.82c-11,0-34.49,4.85-49.7,13.71S23.18,39.09,23.18,50Z"/><path d="M30.91,50c0,11.54,10.68,26.81,24.36,35.62S90.11,98.91,100,98.91V1.09c-9.89,0-31.06,4.48-44.73,13.29S30.91,38.46,30.91,50Z"/><path d="M38.64,50c0,12.18,9.44,27,21.59,35.77s31,12.87,39.77,12.87V1.36c-8.79,0-27.63,4.11-39.77,12.87S38.64,37.82,38.64,50Z"/><path d="M46.36,50c0,12.81,8.21,27.21,18.83,35.92S92.32,98.36,100,98.36V1.64c-7.68,0-24.2,3.73-34.81,12.44S46.36,37.19,46.36,50Z"/><path d="M54.09,50c0,13.45,7,27.41,16.06,36.07s23.28,12,29.85,12V1.91c-6.57,0-20.76,3.36-29.85,12S54.09,36.55,54.09,50Z"/><path d="M61.82,50c0,14.08,5.74,27.61,13.29,36.22S94.53,97.82,100,97.82V2.18c-5.47,0-17.33,3-24.89,11.6S61.82,35.92,61.82,50Z"/><path d="M69.55,50c0,14.72,4.5,27.81,10.53,36.38S95.64,97.55,100,97.55V2.45c-4.36,0-13.9,2.61-19.92,11.17S69.55,35.28,69.55,50Z"/><path d="M77.27,50c0,15.35,3.27,28,7.77,36.53s11.71,10.74,15,10.74V2.73C96.75,2.73,89.54,5,85,13.47S77.27,34.65,77.27,50Z"/><path d="M90,13.32C87,21.79,85,34,85,50s2,28.21,5,36.68S97.85,97,100,97V3C97.85,3,93,4.86,90,13.32Z"/></svg>') right center no-repeat;
+  background-size: 80% 100%;
+  display: block;
+  position: absolute;
+  float: none;
+  top: 16px;
+  right: 0px;
+  bottom: 0px;
+  width: 100px;
+  max-width: 90%;
+  margin: 0px -6px 0px 0px;
+  pointer-events: none;
+}
+*/
+ob-container key[type="object-array"] > object-container{
+  display: block;
+  position: absolute;
+  float: none;
+  left: 100%;
+  top: -3px;
+  width: 1000px;
+  margin: 0px 0px 0px 12px;
+  display: none;
+}
+
+/*ob-container key[type="object-array"] > object-container > ob:first-child:before{*/
+
+ob-container key[type="object-array"] > object-container:after,
+ob-container key[type="object-array"] > object-container:before{
+  content: '';
+  /*background: #5d5d5d, rgba(255, 255, 255, .8);*/
+  background: #000;
+  display: block;
+  position: absolute;
+  float: none;
+  top: 0px;
+  right: 100%;
+  margin: 0px 3px 0px 0px;
+}
+/*
+ob-container key[type="object-array"] > object-container:after{
+  width: 1px;
+  height: calc(100% - 4px);
+}
+*/
+ob-container key[type="object-array"] > object-container:before{
+  width: 28px;
+  height: 22px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, .3);
+  border-radius: 1000px 0px 0px 1000px;
+}
+ob-container key[type="object-array"].ob-open > object-container{
+  display: block;
+}
+
+ob-container button{
+  background: rgb(245, 245, 245);
+  border-radius: 1000px;
+  border: none;
+  padding: 2px 6px;
+  margin: 1px 0px 3px;
+  box-shadow:
+    1px 1px 2px rgba(0,0,0,.2),
+    inset -1px -1px 1px rgba(0,0,0,.2)
+  ;
+}
+ob-container button[disabled]{
+  pointer-events: none;
+  opacity: .5;
+}
+ob-container button:active,
+ob-container button:focus{
+  box-shadow:
+    1px 1px 2px rgba(0,0,0,.2),
+    inset 1px 1px 1px rgba(0,0,0,.2)
+  ;
+}
+
+ob-container button[action="open/close"],
+ob-container button[action="open/close"] span{
+  display: block;
+  position: absolute;
+  float: none;
+  box-sizing: border-box;
+}
+ob-container button[action="open/close"]{
+  width: 16px;
+  height: 16px;
+  padding: 0px;
+  border-radius: 50%;
+  top: 0px;
+  right: 0px;
+  margin: 0px 0px 0px 8px;
+  border-width: 1px;
+}
+/*
+ob-container key:hover button[action="open/close"],
+ob-container key.ob-open > button[action="open/close"]{
+  display: block;
+}
+*/
+ob-container button[action="open/close"] span{
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  right: 4px;
+  margin: -4px 0px 0px;
+  border: 2px solid rgba(0,0,0,.8);
+  border-top: 0px;
+  border-left: 0px;
+  transform: translate(-2px, 0px) rotate(-45deg);
+}
+ob-container key > button[action="open/close"]:before{
+  content: '';
+  background: #fff;
+  display: block;
+  position: absolute;
+  float: none;
+  top: -7px;
+  left: -7px;
+  height: 30px;
+  width: 50px;
+  border-radius: 1000px 0px 0px 1000px;
+  z-index: -1;
+}
+ob-container key.ob-open > button[action="open/close"] span{
+  transform: translate(0px, -2px) rotate(45deg);
 }

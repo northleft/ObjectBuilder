@@ -37,51 +37,53 @@
     <ob-templates>
       <ob ob-type="Graph">
         <ob-label>Graph</ob-label><br>
-        <button ob-build="array">Render</button><br>
+        <button build="array">Render</button><br>
         <button ob-action="Stop">Stop!</button><br>
         <button ob-action="Clear">Clear</button>
 
-        <!-- Object keys or array values -->
-        <ob-setting ob-key="width" ob-validate="float"><label>Width:</label></ob-setting>
-        <ob-setting ob-key="height" ob-validate="float">500</ob-setting>
-        <ob-object ob-key="test" ob-type="test"></ob-object>
-        <ob-object ob-key="custom-test">
-          <ob-setting ob-key="custom-width" ob-validate="float">280</ob-setting>
-          <ob-setting ob-key="custom-height" ob-validate="float">240</ob-setting>
-        </ob-object>
-        <ob-array ob-key="children">
-          <button ob-array-add="Cog">Add Cog</button>
-          <button ob-array-add="Nub">Add Nub</button>
-        </ob-array>
-      </ob>
-      <ob ob-type="test">
-        <ob-setting ob-key="width" ob-validate="float">280</ob-setting>
-        <ob-setting ob-key="height" ob-validate="float">240</ob-setting>
-        <ob-setting ob-key="invert" ob-check>1</ob-setting>
-        <ob-array ob-key="test-children">
-          <button ob-array-add="Cog">Add Cog</button>
-        </ob-array>
+        <key name="width" type="float" value="400"><label>Width</label></key>
+        <key name="height" type="float" value="500"></key>
+        <key name="invert" type="check" value="1"></key>
+
+        <!--
+        <key name="test" type="object">
+          <key name="custom-width" type="float">280</key>
+          <key name="custom-height" type="string">240</key>
+        </key>
+        -->
+
+        <key name="array-test" type="array">
+          <value type="float">280</value>
+          <value type="float">280</value>
+          <value type="float">280</value>
+          <value type="float">280</value>
+        </key>
+        <key name="childrenZ" type="object">
+          <key name="widthZ" type="float">280</key>
+          <key name="heightZ" type="float">240</key>
+        </key>
+        <key name="children" type="object-array" types="Cog, Nub">
+          <button add="Cog">Another Cog</button>
+        </key>
+        <key name="children2" type="object-array" types="Cog, Nub">
+          <button add="Cog">Another Cog</button>
+        </key>
       </ob>
       <ob ob-type="Cog">
         <ob-label>Cog</ob-label>
-        <ob-setting ob-key="width" ob-validate="float">280</ob-setting>
-        <ob-setting ob-key="height" ob-validate="float">240</ob-setting>
-        <ob-setting ob-key="invert" ob-check>0</ob-setting>
-        <!-- An array type is for containing other OB objects listed in the template section-->
+        <key name="width" type="float">280</key>
+        <key name="height" type="float">240</key>
+        <key name="invert" type="check">0</key>
+        <key name="children" type="object-array" types="Cog, Nub"></key>
       </ob>
       <ob ob-type="Nub">
         <ob-label>Nub</ob-label>
-        <ob-setting ob-key="x" ob-validate="float">0</ob-setting>
-        <ob-setting ob-key="y" ob-validate="float">-20</ob-setting>
-        <ob-setting ob-key="color" ob-validate="hexcolor" disabled >#000</ob-setting>
-        <ob-array ob-key="children">
-          <button ob-array-add="Cog">Add Cog</button>
-          <button ob-array-add="Nub">Add Nub</button>
-        </ob-array>
+        <key name="x" type="float">0</key>
+        <key name="y" type="float">20</key>
+        <key name="color" type="hex" disabled >#000</key>
       </ob>
     </ob-templates>
-    <ob-container>
-    </ob-container>
+    <ob-container></ob-container>
   </body>
 </html>
 
